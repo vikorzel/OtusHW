@@ -27,9 +27,18 @@ add_executable(helloworld_cli 	src/main.cpp
 
 add_executable(helloworld_tst src/main_test.cpp)
 
-set_target_properties(helloworld_cli helloworld_tst PROPERTIES
-	CXX_STANDARD 14
-	CXX_STANDARD_REQUIRED NO)
+if(MSVC)
+	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
+		CXX_STANDARD 14
+		CXX_STANDARD_REQUIRED NO
+	)
+else()
+	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
+		CXX_STANDARD 14
+		CXX_STANDARD_REQUIRED NO
+		COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+	)
+endif()
 
 set_target_properties(helloworld_tst PROPERTIES
 	COMPILE_DEFENITIONS BOOST_TEST_DYN_LINK
