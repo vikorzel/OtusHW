@@ -3,5 +3,6 @@
 int main(char argc, char** argv){
 	std::cout << "build " << GetVersion() << std::endl;
 	std::cout<<GetHelloWorld();
+	return 0;
 }
 
