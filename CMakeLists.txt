@@ -5,11 +5,16 @@ if (DEFINED $ENV{TRAVIS_BUILD_NUMBER})
 else()
 	project(helloworld VERSION 0.0.1)
 endif()
-cmake_policy(SET CMP0074 NEW)
+
+if(${CMAKE_MINOR_VERSION} GREATER 10)
+	cmake_policy(SET CMP0074 NEW)
+endif()
+
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 if(MSVC)
 	link_directories(${Boost_LIBRARY_DIR})
 endif()
+
 configure_file(tmpl/version.h.in ../src/version.h)
 add_library(printer src/print_funcs.cpp)
 add_executable(helloworld_cli 	src/main.cpp 
@@ -18,8 +23,6 @@ add_executable(helloworld_cli 	src/main.cpp
 				src/version.h)							
 
 add_executable(helloworld_tst src/main_test.cpp)
-
-
 
 set_target_properties(helloworld_cli helloworld_tst PROPERTIES
 	CXX_STANDARD 14
@@ -42,7 +45,6 @@ else()
 		${Boost_LIBRARIES}
 	)
 endif()
-
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
