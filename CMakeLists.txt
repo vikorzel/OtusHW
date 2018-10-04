@@ -11,8 +11,8 @@ if(${CMAKE_MINOR_VERSION} GREATER 10)
 endif()
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-if(MSVC)
-	link_directories(${Boost_LIBRARY_DIR})
+link_directories(${Boost_LIBRARY_DIR})
+if(MSVC)	
 	configure_file(tmpl/version.h.in ../src/version.h)
 else()
 	configure_file(tmpl/version.h.in src/version.h)
@@ -41,22 +41,16 @@ else()
 endif()
 
 set_target_properties(helloworld_tst PROPERTIES
-	COMPILE_DEFENITIONS BOOST_TEST_DYN_LINK
+	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
 	INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 	)
 target_link_libraries(helloworld_cli
 			printer)
 
-if(MSVC)
-	target_link_libraries(helloworld_tst
-		printer	
-	)
-else()
-	target_link_libraries(helloworld_tst
-		printer
+target_link_libraries(helloworld_tst
 		${Boost_LIBRARIES}
+		printer		
 	)
-endif()
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
