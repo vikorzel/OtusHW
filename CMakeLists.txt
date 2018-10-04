@@ -13,9 +13,12 @@ endif()
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 if(MSVC)
 	link_directories(${Boost_LIBRARY_DIR})
+	configure_file(tmpl/version.h.in ../src/version.h)
+else()
+	configure_file(tmpl/version.h.in src/version.h)
 endif()
 
-configure_file(tmpl/version.h.in ../src/version.h)
+
 add_library(printer src/print_funcs.cpp)
 add_executable(helloworld_cli 	src/main.cpp 
 				src/print_funcs.cpp
