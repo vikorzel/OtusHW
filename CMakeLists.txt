@@ -7,7 +7,9 @@ else()
 endif()
 cmake_policy(SET CMP0074 NEW)
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-link_directories(${Boost_LIBRARY_DIR})
+if(MSVC)
+	link_directories(${Boost_LIBRARY_DIR})
+endif()
 configure_file(tmpl/version.h.in ../src/version.h)
 add_library(printer src/print_funcs.cpp)
 add_executable(helloworld_cli 	src/main.cpp 
@@ -30,10 +32,16 @@ set_target_properties(helloworld_tst PROPERTIES
 target_link_libraries(helloworld_cli
 			printer)
 
-target_link_libraries(helloworld_tst
-	printer
-	#${Boost_LIBRARIES}
-)
+if(MSVC)
+	target_link_libraries(helloworld_tst
+		printer	
+	)
+else()
+	target_link_libraries(helloworld_tst
+		printer
+		${Boost_LIBRARIES}
+	)
+endif()
 
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
