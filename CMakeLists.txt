@@ -47,13 +47,14 @@ set_target_properties(helloworld_tst PROPERTIES
 	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
 	INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 	)
-target_link_libraries(helloworld_cli
-			printer)
+target_link_libraries(	helloworld_cli
+						printer
+					  )
 
-target_link_libraries(helloworld_tst
-		${Boost_LIBRARIES}
-		printer		
-	)
+target_link_libraries(	helloworld_tst
+						${Boost_LIBRARIES}
+						printer		
+					 )
 
 install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
 
