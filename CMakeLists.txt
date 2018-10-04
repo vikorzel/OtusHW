@@ -1,8 +1,11 @@
 cmake_minimum_required(VERSION 3.2)
 enable_testing()
-if (DEFINED $ENV{TRAVIS_BUILD_NUMBER})
+
+if ($ENV{TRAVIS_BUILD_NUMBER})
+	message("Build number: $ENV{TRAVIS_BUILD_NUMBER}")
 	project(helloworld VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 else()
+	message("ENV.TRAVIS_BUILD_NUMBER not found")
 	project(helloworld VERSION 0.0.1)
 endif()
 
