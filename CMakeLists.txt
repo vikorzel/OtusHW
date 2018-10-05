@@ -65,4 +65,4 @@ set(CPACK_PACKAGE_CONTACT hard.slot@gmail.com)
 include (CPack)
 
 
-add_test(test_version_valid helloworld_tst)
+add_test(test_version_valid helloworld_tests)
