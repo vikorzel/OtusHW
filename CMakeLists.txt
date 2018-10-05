@@ -42,6 +42,7 @@ endif()
 set_target_properties(helloworld_tst PROPERTIES
 	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
 	INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
+	OUTPUT_NAME "helloworld_tests"
 	)
 target_link_libraries(	helloworld_cli
 						printer
