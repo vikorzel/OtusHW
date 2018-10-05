@@ -15,13 +15,7 @@ endif()
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 link_directories(${Boost_LIBRARY_DIR})
-if(MSVC)	
-	configure_file(tmpl/version.h.in ../src/version.h)
-else()
-	configure_file(tmpl/version.h.in src/version.h)
-endif()
-
-
+configure_file(tmpl/version.h.in ${PROJECT_SOURCE_DIR}/src/version.h)
 add_library(printer src/print_funcs.cpp)
 add_executable(helloworld_cli 	src/main.cpp 
 				src/print_funcs.cpp
@@ -34,12 +28,14 @@ if(MSVC)
 	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
 		CXX_STANDARD 14
 		CXX_STANDARD_REQUIRED NO
+		OUTPUT_NAME "helloworld"
 	)
 else()
 	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
 		CXX_STANDARD 14
 		CXX_STANDARD_REQUIRED NO
 		COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
+		OUTPUT_NAME "helloworld"
 	)
 endif()
 
