@@ -17,7 +17,7 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 link_directories(${Boost_LIBRARY_DIR})
 configure_file(tmpl/version.h.in ${PROJECT_SOURCE_DIR}/src/version.h)
 add_library(printer src/print_funcs.cpp)
-add_executable(helloworld_cli 	src/main.cpp 
+add_executable(helloworld 	src/main.cpp 
 				src/print_funcs.cpp
 				src/print_funcs.h
 				src/version.h)							
@@ -25,26 +25,23 @@ add_executable(helloworld_cli 	src/main.cpp
 add_executable(helloworld_tst src/main_test.cpp)
 
 if(MSVC)
-	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
+	set_target_properties(helloworld helloworld_tst PROPERTIES
 		CXX_STANDARD 14
 		CXX_STANDARD_REQUIRED NO
-		OUTPUT_NAME "helloworld"
 	)
 else()
-	set_target_properties(helloworld_cli helloworld_tst PROPERTIES
+	set_target_properties(helloworld helloworld_tst PROPERTIES
 		CXX_STANDARD 14
 		CXX_STANDARD_REQUIRED NO
 		COMPILE_OPTIONS "-Wpedantic;-Wall;-Wextra"
-		OUTPUT_NAME "helloworld"
 	)
 endif()
 
 set_target_properties(helloworld_tst PROPERTIES
 	COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
 	INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
-	OUTPUT_NAME "helloworld_tests"
 	)
-target_link_libraries(	helloworld_cli
+target_link_libraries(	helloworld
 						printer
 					  )
 
@@ -53,7 +50,7 @@ target_link_libraries(	helloworld_tst
 						printer		
 					 )
 
-install(TARGETS helloworld_cli RUNTIME DESTINATION bin)
+install(TARGETS helloworld RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR "DEB")
 
@@ -65,4 +62,4 @@ set(CPACK_PACKAGE_CONTACT hard.slot@gmail.com)
 include (CPack)
 
 
-add_test(test_version_valid helloworld_tests)
+add_test(test_version_valid helloworld_tst)

@@ -20,6 +20,6 @@ int GetPatchVerion() {
 
 std::string GetVersion() {
 	std::stringstream str;
-	str << GetMajorVerion() << "." << GetMinorVerion() << "." << GetPatchVerion();
+	str << GetPatchVerion();
 	return str.str();
 }
